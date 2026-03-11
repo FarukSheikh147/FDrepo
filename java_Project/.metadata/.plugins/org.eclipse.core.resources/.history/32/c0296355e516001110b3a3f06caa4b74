@@ -1,0 +1,140 @@
+package com.filehandling;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths; // Java 8 compatible
+import java.nio.file.Path;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Scanner;
+
+public class StudentApp {
+
+    // --- Inner (non-public) Student class in the same file ---
+    static class Student {
+        private int rollNo;
+        private String name;
+        private int maths;
+        private int science;
+        private int english;
+
+        public Student(int rollNo, String name, int maths, int science, int english) {
+            this.rollNo = rollNo;
+            this.name = name;
+            this.maths = maths;
+            this.science = science;
+            this.english = english;
+        }
+
+        public int getGrandTotal() { return maths + science + english; }
+        public double getPercentage() { return (getGrandTotal() / 300.0) * 100.0; }
+
+        public String toCsv() {
+            String safeName = name.replace(",", " ");
+            return rollNo + "," + safeName + "," + maths + "," + science + "," + english;
+        }
+
+        public static Student fromCsv(String line) {
+            Objects.requireNonNull(line, "CSV line is null");
+            String[] p = line.split(",", -1);
+            if (p.length != 5) throw new IllegalArgumentException("Invalid line: " + line);
+            int roll = Integer.parseInt(p[0].trim());
+            String nm = p[1].trim();
+            int m = Integer.parseInt(p[2].trim());
+            int s = Integer.parseInt(p[3].trim());
+            int e = Integer.parseInt(p[4].trim());
+            return new Student(roll, nm, m, s, e);
+        }
+
+        @Override
+        public String toString() {
+            return "Roll: " + rollNo + ", Name: " + name +
+                   ", Maths: " + maths + ", Science: " + science + ", English: " + english;
+        }
+    }
+
+    private static final int STUDENT_COUNT = 5;
+    private static final String FILE_NAME = "student.txt";
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        sc.useLocale(Locale.ENGLISH);
+
+        Student[] students = new Student[STUDENT_COUNT];
+
+        System.out.println("=== Enter " + STUDENT_COUNT + " Students Data ===");
+        for (int i = 0; i < STUDENT_COUNT; i++) {
+            System.out.println("\nStudent " + (i + 1) + ":");
+            int rollNo = readInt(sc, "Roll No: ");
+            String name = readNonEmptyString(sc, "Name: ");
+            int maths = readMarks(sc, "Maths marks (0-100): ");
+            int science = readMarks(sc, "Science marks (0-100): ");
+            int english = readMarks(sc, "English marks (0-100): ");
+            students[i] = new Student(rollNo, name, maths, science, english);
+        }
+
+        // WRITE
+        Path out = Paths.get(FILE_NAME);
+        try (BufferedWriter bw = Files.newBufferedWriter(out, StandardCharsets.UTF_8)) {
+            for (Student s : students) {
+                bw.write(s.toCsv());
+                bw.newLine();
+            }
+            System.out.println("\nData written to file: " + out.toAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error writing file: " + e.getMessage());
+            return;
+        }
+
+        // READ
+        System.out.println("\n=== Reading from file and displaying results ===");
+        try (BufferedReader br = Files.newBufferedReader(out, StandardCharsets.UTF_8)) {
+            String line;
+            int idx = 1;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                try {
+                    Student s = Student.fromCsv(line);
+                    System.out.printf(
+                        "Student %d -> %s | Grand Total: %d | Percentage: %.2f%%%n",
+                        idx, s.toString(), s.getGrandTotal(), s.getPercentage()
+                    );
+                } catch (IllegalArgumentException ex) {
+                    System.err.println("Skipping invalid line: " + line);
+                }
+                idx++;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    // helpers
+    private static int readInt(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String in = sc.nextLine().trim();
+            try { return Integer.parseInt(in); }
+            catch (NumberFormatException e) { System.out.println("Please enter a valid integer."); }
+        }
+    }
+    private static String readNonEmptyString(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String in = sc.nextLine().trim();
+            if (!in.isEmpty()) return in;
+            System.out.println("Value cannot be empty.");
+        }
+    }
+    private static int readMarks(Scanner sc, String prompt) {
+        while (true) {
+            int m = readInt(sc, prompt);
+            if (m >= 0 && m <= 100) return m;
+            System.out.println("Marks must be between 0 and 100.");
+        }
+    }
+}
+``

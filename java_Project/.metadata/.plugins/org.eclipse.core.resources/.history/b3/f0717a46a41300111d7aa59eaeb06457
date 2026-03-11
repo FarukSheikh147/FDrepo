@@ -1,0 +1,10 @@
+package com.ds.stack;
+
+public class StackByArray {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

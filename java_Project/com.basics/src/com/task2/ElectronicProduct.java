@@ -1,0 +1,25 @@
+package com.task2;
+
+
+ class ElectronicProduct extends Product {
+	private String warranty;
+	private String brand;
+	public ElectronicProduct(int productId, String productName, double price, int warrantyPeriod, String brand) {
+		super(productId, productName, price);
+		this.warranty=warranty;
+		this.brand=brand;
+	}
+	@Override
+	public void display() {
+		
+		System.out.println("ID:"+productId);
+		System.out.println("Name:"+productName);
+		System.out.println("Price:"+price);
+		System.out.println("brand:"+brand);
+		System.out.println("Warranty:"+warranty+"years");
+		
+		
+	}
+		
+	
+}

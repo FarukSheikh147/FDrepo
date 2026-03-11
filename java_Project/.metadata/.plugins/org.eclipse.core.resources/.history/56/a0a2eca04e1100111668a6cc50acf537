@@ -1,0 +1,10 @@
+package com.day2;
+
+public class UseEmployee {
+	
+	public static void main(String[]args) {
+		PermanantEmployee p1= new PermanantEmployee(101, "Alex", 3000, 2000 );
+		System.out.println(p1.empId+p1.name+p1.salary+p1.bonus);
+	}
+
+}

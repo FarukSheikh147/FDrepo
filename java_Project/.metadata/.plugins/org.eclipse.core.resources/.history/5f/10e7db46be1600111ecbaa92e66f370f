@@ -1,0 +1,50 @@
+package com.fileinputoutput;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+public class TestFileIo {
+
+	public static void main(String[] args) throws IOException {
+		// Writing to a file
+		String fileName = "data.txt";
+		
+		FileOutputStream out =null;
+		try {
+			 out = new FileOutputStream(fileName);
+		
+			String msg="Hi I am Faruk";
+			
+			//conver msg to a byte array because write need byte as a parameter
+			byte [] arr= msg.getBytes();
+			out.write(arr);
+			System.out.println("Data Written Successfully");
+			
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			out.close();
+		}
+		System.out.println("Reading From File");
+		FileInputStream fis = new FileInputStream(fileName);
+		int byteData;
+		while ((byteData = fis.read()) != -1) {
+			System.out.println((char)byteData);
+		}
+		fis.close();
+
+	}
+
+
+}

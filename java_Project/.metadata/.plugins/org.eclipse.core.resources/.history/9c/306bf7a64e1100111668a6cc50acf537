@@ -1,0 +1,10 @@
+package com.day2;
+
+public class ContractualEmployee {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

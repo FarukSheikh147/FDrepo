@@ -1,0 +1,69 @@
+package com.filehandling;
+
+import java.util.Objects;
+
+/**
+ * Student POJO + utility (CSV conversion)
+ */
+public class Student {
+    private int rollNo;
+    private String name;
+    private int maths;
+    private int science;
+    private int english;
+
+    public Student(int rollNo, String name, int maths, int science, int english) {
+        this.rollNo = rollNo;
+        this.name = name;
+        this.maths = maths;
+        this.science = science;
+        this.english = english;
+    }
+
+    public int getRollNo()     { return rollNo; }
+    public String getName()    { return name; }
+    public int getMaths()      { return maths; }
+    public int getScience()    { return science; }
+    public int getEnglish()    { return english; }
+
+    /** Grand total of 3 subjects */
+    public int getGrandTotal() {
+        return maths + science + english;
+    }
+
+    /** Percentage out of 300 */
+    public double getPercentage() {
+        return (getGrandTotal() / 300.0) * 100.0;
+    }
+
+    /** Prepare one CSV line for writing to file */
+    public String toCsv() {
+        // avoid commas in name to keep CSV simple
+        String safeName = name.replace(",", " ");
+        return rollNo + "," + safeName + "," + maths + "," + science + "," + english;
+    }
+
+    /** Parse one Student from a CSV line */
+    public static Student fromCsv(String line) {
+        Objects.requireNonNull(line, "CSV line is null");
+        String[] p = line.split(",", -1);
+        if (p.length != 5) {
+            throw new IllegalArgumentException("Invalid line (expected 5 fields): " + line);
+        }
+        int roll = Integer.parseInt(p[0].trim());
+        String nm = p[1].trim();
+        int m = Integer.parseInt(p[2].trim());
+        int s = Integer.parseInt(p[3].trim());
+        int e = Integer.parseInt(p[4].trim());
+        return new Student(roll, nm, m, s, e);
+    }
+
+    @Override
+    public String toString() {
+        return "Roll: " + rollNo +
+               ", Name: " + name +
+               ", Maths: " + maths +
+               ", Science: " + science +
+               ", English: " + english;
+    }
+}

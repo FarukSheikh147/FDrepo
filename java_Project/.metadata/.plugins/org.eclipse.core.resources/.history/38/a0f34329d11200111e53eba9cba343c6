@@ -1,0 +1,25 @@
+package com.mycollection;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test {
+
+	public static void main(String[] args) {
+		
+	List <String> emp= new ArrayList();
+		emp.add("Rahul Mahajan");
+		emp.add("Faruk Sheikh");
+		emp.add("Mohan Singh");
+		emp.add("Ravi Raj");
+		emp.add("Kajal Sharma");
+		System.out.println(emp);
+		
+		// for each loop
+		for(String employees : emp) {
+			System.out.println(employees);
+		}
+
+	}
+
+}

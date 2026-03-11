@@ -1,0 +1,12 @@
+package com.day2;
+
+public class PermanentEmployee extends Employee{
+	private double bonus;
+	private double pf;
+	public PermanentEmployee(int empId, String name, double salary) {
+		super(empId, name, salary);
+		
+	}
+	
+
+}

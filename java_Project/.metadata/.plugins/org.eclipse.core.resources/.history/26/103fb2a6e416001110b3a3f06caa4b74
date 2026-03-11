@@ -1,0 +1,66 @@
+package com.filehandling;
+
+import java.util.Objects;
+
+public class Student {
+    private int rollNo;
+    private String name;
+    private int maths;
+    private int science;
+    private int english;
+
+    public Student(int rollNo, String name, int maths, int science, int english) {
+        this.rollNo = rollNo;
+        this.name = name;
+        this.maths = maths;
+        this.science = science;
+        this.english = english;
+    }
+
+    // --- Getters (zarurat pade to use kar sakte ho) ---
+    public int getRollNo() { return rollNo; }
+    public String getName() { return name; }
+    public int getMaths() { return maths; }
+    public int getScience() { return science; }
+    public int getEnglish() { return english; }
+
+    // --- Required methods ---
+    public int getGrandTotal() {
+        return maths + science + english;
+    }
+
+    public double getPercentage() {
+        // Teen subjects, har ek 100 marks ka
+        return (getGrandTotal() / 300.0) * 100.0;
+    }
+
+    // --- File write ke liye CSV format (safe for commas in name -> replace) ---
+    public String toCsv() {
+        String safeName = name.replace(",", " "); // commas remove to avoid split issues
+        return rollNo + "," + safeName + "," + maths + "," + science + "," + english;
+    }
+
+    // --- File read ke liye CSV parser ---
+    public static Student fromCsv(String line) throws IllegalArgumentException {
+        Objects.requireNonNull(line, "CSV line is null");
+        String[] parts = line.split(",", -1);
+        if (parts.length != 5) {
+            throw new IllegalArgumentException("Invalid line (expected 5 fields): " + line);
+        }
+        int roll = Integer.parseInt(parts[0].trim());
+        String nm = parts[1].trim();
+        int m = Integer.parseInt(parts[2].trim());
+        int s = Integer.parseInt(parts[3].trim());
+        int e = Integer.parseInt(parts[4].trim());
+        return new Student(roll, nm, m, s, e);
+    }
+
+    @Override
+    public String toString() {
+        return "Roll: " + rollNo +
+               ", Name: " + name +
+               ", Maths: " + maths +
+               ", Science: " + science +
+               ", English: " + english;
+    }
+}

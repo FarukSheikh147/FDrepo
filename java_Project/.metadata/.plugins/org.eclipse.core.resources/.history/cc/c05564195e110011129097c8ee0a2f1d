@@ -1,0 +1,16 @@
+package com.day2;
+
+public class UseEmployee {
+	
+	public static void main(String[]args) {
+		PermanantEmployee p1= new PermanantEmployee(101, "Alex", 3000, 2000 );
+		System.out.println(p1.empId+p1.name+p1.salary+p1.bonus);
+		
+		p1.calculatePerk(30);
+		p1.calculatePerk(26,30);
+		
+		ContractualEmployee c1=new ContractualEmployee (102, "Aman",4000,2);
+		System.out.println(c1.empId+c1.name+c1.salary+c1.noOfHours);
+	}
+
+}

@@ -1,0 +1,12 @@
+package com.day2;
+
+public class PermanantEmployee extends Employee {
+	int bonus;
+
+	public PermanantEmployee(int empId, String name, double salary,int bonus) {
+		super(empId, name, salary);
+		
+		this.bonus=bonus;
+	}
+
+}

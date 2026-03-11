@@ -1,0 +1,40 @@
+package com.fileinputoutput;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteInFile {
+
+	public static void main(String[] args) {
+		FileWriter fw;
+
+		try {
+			fw = new FileWriter("temp.text");
+			fw.write("Hello this is a file writer");
+			fw.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		System.out.println("File written successfully");
+		
+		
+		try {
+			FileReader fr = new FileReader("temp.txt");
+			int i;
+			while((i=fr.read())!= -1) {
+				System.out.println((char)i);
+			}
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+
+	}
+
+}

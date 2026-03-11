@@ -1,0 +1,30 @@
+package com.mycollection;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class TestMap {
+
+	public static void main(String[] args) {
+		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+		
+		hm.put("a", 101);
+		hm.put("b", 102);
+		hm.put("c", 103);
+		hm.put("d", 104);
+		hm.put("e", 105);
+		
+		hm.put("null", 1011);
+		hm.put("null", null);
+		
+		Set<Map.Entry<String,Integer>> st =hm.entrySet();
+		
+		for(Map.Entry<String,Integer> me1:st) {
+			System.out.println(me1.getKey()+":");
+			System.out.println(me1.getValue());
+		}
+		
+	}
+
+}

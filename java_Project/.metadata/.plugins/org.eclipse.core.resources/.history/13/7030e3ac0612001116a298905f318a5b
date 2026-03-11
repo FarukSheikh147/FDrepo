@@ -1,0 +1,24 @@
+package com.day3;
+
+public class TestThrow {
+    
+	public static void checkAge(int age) {
+		if(age<18) {
+			throw new ArithmeticException("Under age can not be processed");
+			
+		}else {
+			System.out.println("Age is valid");
+		}
+		if(age>50) {
+			throw new RuntimeException("Overage");
+		}else {
+			System.out.println("Age is valid");
+		}
+	}
+	public static void main(String[] args) {
+		checkAge(-2);
+		
+
+	}
+
+}

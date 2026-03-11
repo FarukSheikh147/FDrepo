@@ -1,0 +1,33 @@
+package com.day3;
+
+public class TestThrow {
+    
+	public static void checkAge(int age) throws ArithmeticException, RuntimeException {
+		if(age<18) {
+			throw new ArithmeticException("Under age can not be processed");
+			
+		}else {
+			System.out.println("Age is valid");
+		}
+		if(age>50) {
+			throw new RuntimeException("Overage");
+		}else {
+			System.out.println("Age is valid");
+		}
+	}
+	public static void main(String[] args) {
+		try {
+			checkAge(20);
+		}
+		catch( ArithmeticException e){
+			System.out.println("Exception Caught:"+e.getMessage());
+			
+		}
+		finally {
+			System.out.println("I will any way execute");
+		}
+		
+
+	}
+
+}

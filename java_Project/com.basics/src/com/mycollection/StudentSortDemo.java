@@ -1,0 +1,22 @@
+package com.mycollection;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class StudentSortDemo {
+
+	public static void main(String[] args) {
+		List<Student>std=new ArrayList<>();
+	    std.add(new Student(103,"Faruk",30));
+	    std.add(new Student(101,"Mohan",40));
+	    std.add(new Student(102,"Aman",20));
+	    std.add(new Student(104,"Raju",10));
+	    
+	    System.out.println(std);
+	    Collections.sort(std);
+	    System.out.println(std);
+
+	}
+
+}

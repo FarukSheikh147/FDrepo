@@ -1,0 +1,24 @@
+package com.day2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mycollection.EmployeeData;
+
+public class EmployeeData {
+
+	
+		public static void main(String[] args) {
+			List <EmployeeData> emp= new ArrayList<EmployeeData>();
+			emp.addAll(new Employee(1,"Faruk",3000));
+			emp.add(new Employee(2,"Faruk",4000));
+			emp.add("Mohan Singh");
+			emp.add("Ravi Raj");
+			emp.add("Kajal Sharma");
+			System.out.println(emp);
+
+		}
+
+	}
+
+}
